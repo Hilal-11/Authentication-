@@ -2,7 +2,6 @@ const User = require('../models/UserSchema')
 
 const createUser = async (req , res) => {
     try{
-
         const { username , email , password , phone } = req.body;
         const userExists = await User.findOne({ email: email })
 
@@ -36,3 +35,5 @@ const createUser = async (req , res) => {
         })
     }
 }
+
+module.exports = createUser;
