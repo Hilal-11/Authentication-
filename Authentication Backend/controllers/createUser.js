@@ -13,13 +13,13 @@ const createUser = async (req , res) => {
         }
 
 
-        const salt_round = await bcrypt.genSalt(10);
-        const hash_password = await bcrypt.hash(password , salt_round)
+        // const salt_round = await bcrypt.genSalt(10);
+        // const hash_password = await bcrypt.hash(password , salt_round)
 
         const response = await User.create({
             username,
             email,
-            password: hash_password,
+            password,
             phone
         })
 
