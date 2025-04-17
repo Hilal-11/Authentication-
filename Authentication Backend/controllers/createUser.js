@@ -1,5 +1,5 @@
 const User = require('../models/UserSchema')
-
+const bcrypt = require('bcrypt')
 const createUser = async (req , res) => {
     try{
         const { username , email , password , phone } = req.body;
@@ -11,10 +11,15 @@ const createUser = async (req , res) => {
                 message: "Emial already exists"
             })
         }
+
+
+        const salt_round = await bcrypt.genSalt(10);
+        const hash_password = await bcrypt.hash(password , salt_round)
+
         const response = await User.create({
             username,
             email,
-            password,
+            password: hash_password,
             phone
         })
 

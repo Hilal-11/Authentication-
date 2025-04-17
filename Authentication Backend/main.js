@@ -4,9 +4,9 @@ require('dotenv').config();
 const app_routes = require('./routes/app_routes');
 const connectDB = require('./config/database');
 const PORT = process.env.PORT
+const app = express();
 
 app.use(express.json())
-const app = express();
 
 
 app.get("/", (req , res) => {
