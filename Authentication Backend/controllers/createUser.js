@@ -24,7 +24,8 @@ const createUser = async (req , res) => {
         res.status(200).json({
             success: true,
             message: "user entry in Database successfully",
-            token: generateToken(),
+            data: response,
+            token: await response.generateToken(),
         })
 
     }catch(error) {
