@@ -22,8 +22,6 @@ const UserSchema = mongoose.Schema({
         maxLength: 12,
     }
 })
-
-
 UserSchema.pre("save" , async function(next) {
     const user = this;
     if(!user.isModified('password')){
@@ -38,8 +36,6 @@ UserSchema.pre("save" , async function(next) {
         next(error.message)
     }
 })
-
-
 UserSchema.methods.generateToken = async function() {
     try{    
         return jwt.sign({
