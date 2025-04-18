@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+const JWT_SECRET_SIGNITURE = process.env.JWT_SECRET_SIGNITURE
 const UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -35,5 +38,24 @@ UserSchema.pre("save" , async function(next) {
         next(error.message)
     }
 })
+
+
+UserSchema.method.generateToken = async function() {
+    try{    
+        return jwt.sign({
+            userId: this._id.toString(),
+            email: this.email,   
+        },
+        JWT_SECRET_SIGNITURE,
+        {
+            expiresIn: '10d'
+        }
+    )
+    }catch(error) { 
+        console.log(error.message);
+        console.log("Failed to Generate the web token.")
+    }
+}
+
 
 module.exports = mongoose.model('User' , UserSchema)

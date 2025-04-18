@@ -11,8 +11,6 @@ const createUser = async (req , res) => {
                 message: "Emial already exists"
             })
         }
-
-
         // const salt_round = await bcrypt.genSalt(10);
         // const hash_password = await bcrypt.hash(password , salt_round)
 
@@ -26,7 +24,7 @@ const createUser = async (req , res) => {
         res.status(200).json({
             success: true,
             message: "user entry in Database successfully",
-            data: response,
+            token: generateToken(),
         })
 
     }catch(error) {
