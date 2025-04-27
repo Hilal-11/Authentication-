@@ -4,11 +4,11 @@ const validate =  (Schema) => async (req , res , next) => {
         const parseBody = await Schema.parseAsync(req.body)
         req.body = parseBody
         next();
-    }catch(error) {
-        console.log(error.message)
+    }catch(err) {
+        const message = err.errors[0].message
+        console.log(message)
         res.status(400).json({
-            success: false,
-            message: "Failed to validation"
+            msg: message
         })
     }
 }
